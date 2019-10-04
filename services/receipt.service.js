@@ -47,6 +47,7 @@ module.exports = {
 			},
 			handler(ctx) {
 				firebase.database().ref(ctx.params.userId+'/'+ctx.params.receiptId).set({
+					id: ctx.params.receiptId,
                     date: ctx.params.date,
                     business: ctx.params.business,
                     name : ctx.params.name,
@@ -99,32 +100,20 @@ module.exports = {
 			}
 		},
 
+		
+
 		update: {
-			params: {
-				userName: "string",
-				userPicture: "string"
-			},
 			handler(ctx){
-				var user = firebase.auth().currentUser;
-				user.updateProfile({
-					displayName: ctx.params.userName,
-					photoURL: ctx.params.userPicture,
-				}).then(function() {
-					// Update successful.
-				}).catch(function(error) {
-					// An error happened.
-				});
-				return user;
 			}
 		},
 
 		delete: {
+			params: {
+				userId: "string",
+				receiptId: "string"
+			},
 			handler(ctx){
-				firebase.auth().signOut().then(function() {
-					// Sign-out successful.
-				  }).catch(function(error) {
-					// An error happened.
-				  });
+				firebase.database().ref(ctx.params.userId+'/'+ctx.params.receiptId).remove();
 			}
 			
 		}
