@@ -100,13 +100,6 @@ module.exports = {
 			}
 		},
 
-		
-
-		update: {
-			handler(ctx){
-			}
-		},
-
 		delete: {
 			params: {
 				userId: "string",
